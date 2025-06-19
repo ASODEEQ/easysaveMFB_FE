@@ -6,7 +6,7 @@ const Dashboard = () => {
     let navigate = useNavigate()
     const Logout = () => {
         localStorage.removeItem('token')
-        navigate('/login')
+        navigate('/')
     }
     
     return (

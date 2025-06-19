@@ -21,7 +21,7 @@ const Forgotpass = () => {
         setresp(response.data.message)
 
         if(response.data.status){
-            navigate('/login')
+            navigate('/')
         }
         else{
             console.log({status: false, message: "try to reset again"});
@@ -87,7 +87,7 @@ const Forgotpass = () => {
                             {resp && (
                                 <div className="text-center">
                                     <Link 
-                                        to={'/login'} 
+                                        to={'/'} 
                                         style={styles.link}
                                     >
                                         Back to Login
