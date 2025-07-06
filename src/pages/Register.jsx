@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const [firstName, setfirstName] = useState('')
@@ -8,6 +9,8 @@ const Register = () => {
     const [phoneNumber, setphoneNumber] = useState('')
     const [file, setfile] = useState(null)
     const [password, setpassword] = useState('')
+    const [Id, setId] = useState('')
+    let navigate = useNavigate()
 
     const handleFile = (e) => {
         let image = e.target.files[0]
@@ -21,11 +24,21 @@ const Register = () => {
         }
     }
 
+    
+
     const handleRegister = async () => {
+        try {
         let endpoint = 'http://localhost:5005/user/signup'
         let Registerit = {firstName, lastName, email, phoneNumber, password, profileImage: file}
         let response = await axios.post(endpoint, Registerit)
+        
         console.log(response.data);
+        navigate("/")
+        } catch (error) {
+            console.log(error);
+            
+        }
+    
     }
 
     return (
