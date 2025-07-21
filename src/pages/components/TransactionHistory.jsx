@@ -15,7 +15,7 @@ const TransactionHistory = () => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5005/user/transactions/${id}`,
+          `https://bankappbackend-1.onrender.com/user/transactions/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

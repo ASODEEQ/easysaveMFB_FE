@@ -12,7 +12,7 @@ const Dashboard = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    let endpoint = `http://localhost:5005/user/dashboard/${id}`;
+    let endpoint = `https://bankappbackend-1.onrender.com/user/dashboard/${id}`;
     const fetchUser = async () => {
       let response = await axios.get(endpoint, {
         headers: {

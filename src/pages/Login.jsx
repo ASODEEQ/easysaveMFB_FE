@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setisloading(true);
-      let endpoint = "http://localhost:5005/user/login";
+      let endpoint = "https://bankappbackend-1.onrender.com/user/login";
       let logitt = { email, password };
 
       let response = await axios.post(endpoint, logitt);

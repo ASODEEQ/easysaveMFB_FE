@@ -23,7 +23,7 @@ const Deposit = () => {
         setisLoading(true);
         seterror(null);
         const response = await axios.post(
-          "http://localhost:5005/user/resolveAccount",
+          "https://bankappbackend-1.onrender.com/user/resolveAccount",
           { accountNumber: value }
         );
         setaccountInfo(response.data);
@@ -40,7 +40,7 @@ const Deposit = () => {
     let number = Number(amount);
     try {
       let response = await axios.post(
-        `http://localhost:5005/user/deposit/${id}`,
+        `https://bankappbackend-1.onrender.com/user/deposit/${id}`,
         { amount: number, accountNumber },
         {
           headers: {

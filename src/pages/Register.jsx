@@ -26,7 +26,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
-            let endpoint = 'http://localhost:5005/user/signup';
+            let endpoint = 'https://bankappbackend-1.onrender.com/user/signup';
             let Registerit = {firstName, lastName, email, phoneNumber, password, profileImage: file};
             let response = await axios.post(endpoint, Registerit);
             

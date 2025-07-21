@@ -28,7 +28,7 @@ const Transferesave = () => {
         setIsLoading(true);
         setError(null);
         const response = await axios.post(
-          "http://localhost:5005/user/resolveAccount",
+          "https://bankappbackend-1.onrender.com/user/resolveAccount",
           { accountNumber: value }
         );
         setAccountInfo(response.data);
@@ -44,7 +44,7 @@ const Transferesave = () => {
   const sendMoney = async () => {
     try {
       let response = await axios.post(
-        `http://localhost:5005/user/transferfunds/${id}`,
+        `https://bankappbackend-1.onrender.com/user/transferfunds/${id}`,
         {
           amount,
           receipientAc: accountNumber,

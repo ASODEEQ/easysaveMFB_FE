@@ -7,8 +7,9 @@ import Dashboard from "./pages/Dashboard";
 import AuthGuard from "./Auth/Authguard";
 import Transferesave from "./pages/Transferesave";
 import Deposit from "./pages/Deposit";
-import TransactionHistory from "./pages/Transactionhistory";
+
 import Notfound from "./pages/Notfound";
+import TransactionHistory from "./pages/components/TransactionHistory";
 
 const App = () => {
   const isAuthenticated = localStorage.getItem("token");

@@ -13,7 +13,7 @@ const Forgotpass = () => {
 
     const reset = async() => {
         let resetit = {email, password};
-        let endpoint = "http://localhost:5005/user/forgotpass";
+        let endpoint = "https://bankappbackend-1.onrender.com/user/forgotpass";
 
         let response = await axios.post(endpoint, resetit);
 
