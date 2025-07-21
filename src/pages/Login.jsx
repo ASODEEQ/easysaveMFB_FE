@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Forgotpass from "./Forgotpass";
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Login = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [isloading, setisloading] = useState(false);
+  const [message, setmessage] = useState('')
 
   let navigate = useNavigate();
 
@@ -18,7 +20,12 @@ const Login = () => {
 
       let response = await axios.post(endpoint, logitt);
       console.log(response.data);
+       setmessage(response.data.message);
+       
       if (response.data.status) {
+         setTimeout(() => {
+          // navigate(`/`);
+        }, 4000);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("id", response.data.id);
         navigate(`/dashboard/${response.data.id}`);
@@ -38,7 +45,7 @@ const Login = () => {
         <div className="container">
           <div className="d-flex align-items-center">
             <img 
-              // src="" 
+              src={logo} 
               alt="Esave MFB" 
               style={{ height: '40px' }}
             />
@@ -54,6 +61,15 @@ const Login = () => {
               <div className="card-header bg-white border-0 pt-4">
                 <h2 className="text-center mb-1" style={styles.heading}>Sign In</h2>
                 <p className="text-center text-muted mb-0">to your Online Banking account</p>
+                {message && (
+                  <div className={`alert ${message.toLowerCase().includes('success') ? 'alert-success' : 'alert-danger'} mb-4`}>
+                    {message}
+                    <button 
+                      className="btn-close float-end" 
+                      onClick={() => setmessage('')}
+                    ></button>
+                  </div>
+                )}
               </div>
               <div className="card-body px-4 px-md-5 py-4">
                 <div className="mb-4">

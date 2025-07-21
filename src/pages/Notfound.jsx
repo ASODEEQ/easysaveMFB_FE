@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const NotFound = () => {
   return (
@@ -7,7 +8,7 @@ const NotFound = () => {
       <header className="bg-primary py-3">
         <div className="container d-flex justify-content-between align-items-center">
           <img 
-            // src="" 
+            src={logo} 
             alt="EASYSAVE MFB" 
             style={{ height: '40px' }}
           />
@@ -15,7 +16,7 @@ const NotFound = () => {
         </div>
       </header>
 
-      {/* 404 Content */}
+  
       <main className="container py-5">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6 text-center">
