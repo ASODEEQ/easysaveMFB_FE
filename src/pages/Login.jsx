@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Forgotpass from "./Forgotpass";
-import { Bars } from "react-loader-spinner";
 
 const Login = () => {
   const [email, setemail] = useState("");
@@ -101,7 +100,7 @@ const Login = () => {
                   >
                     {isloading ? (
                       <div className="d-flex justify-content-center align-items-center">
-                        <Bars
+                        {/* <Bars
                           height="20"
                           width="20"
                           color="#ffffff"
@@ -109,7 +108,9 @@ const Login = () => {
                           wrapperStyle={{}}
                           wrapperClass=""
                           visible={true}
-                        />
+                        /> */}
+
+                        loading...
                       </div>
                     ) : (
                       <span>Sign In</span>
