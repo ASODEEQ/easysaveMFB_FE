@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotpass" element={<Forgotpass />} />
-        <Route path="/dashboard" element={<Navigate to={"/dashboard/:id"} />} />
+        {/* <Route path="/dashboard" element={<Navigate to={"/dashboard/:id"} />} /> */}
         <Route element={<AuthGuard isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard/:id" element={<Dashboard />} />
           <Route path="/transferfunds/:id" element={<Transferesave/>}/>
