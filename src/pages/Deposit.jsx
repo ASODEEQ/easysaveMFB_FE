@@ -87,7 +87,7 @@ const Deposit = () => {
               <div className="card-body p-4">
                 <h2 className="text-primary mb-4">Make a Deposit</h2>
                 
-                {/* Message Display - Properly placed in return() */}
+              
                 {message && (
                   <div className={`alert ${message.toLowerCase().includes('success') ? 'alert-success' : 'alert-danger'} mb-4`}>
                     {message}

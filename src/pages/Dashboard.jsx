@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-// import logo  from '../assets/'
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Dashboard = () => {
   const [loading, setloading] = useState(true);
@@ -48,7 +48,7 @@ const Dashboard = () => {
             <div className="container-fluid">
               <div className="d-flex align-items-center">
                 <img 
-                  // src=""
+                  src={logo}
                   alt="Esave MFB" 
                   style={{ height: '40px' }}
                 />
