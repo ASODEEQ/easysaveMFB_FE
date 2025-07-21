@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Register = () => {
  
@@ -29,9 +30,10 @@ const Register = () => {
             let endpoint = 'https://bankappbackend-1.onrender.com/user/signup';
             let Registerit = {firstName, lastName, email, phoneNumber, password, profileImage: file};
             let response = await axios.post(endpoint, Registerit);
-            
             console.log(response.data);
-            navigate("/");
+            if(response.data.status){
+                navigate("/");
+            }
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +46,7 @@ const Register = () => {
                 <div className="container">
                     <div className="d-flex align-items-center">
                         <img 
-                            // src="" 
+                            src={logo}
                             alt="Esave MFB" 
                             style={{ height: '40px' }}
                         />

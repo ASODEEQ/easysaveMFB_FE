@@ -24,6 +24,7 @@ const Login = () => {
        
       if (response.data.status) {
          setTimeout(() => {
+           navigate(`/dashboard/${response.data.id}`);
           // navigate(`/`);
         }, 4000);
         localStorage.setItem("token", response.data.token);

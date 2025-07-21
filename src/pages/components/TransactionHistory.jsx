@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
+
 const TransactionHistory = () => {
 
   const [transactions, setTransactions] = useState([]);
@@ -9,7 +10,7 @@ const TransactionHistory = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
   const token = localStorage.getItem('token');
-  let navigate = useNavigate
+  let navigate = useNavigate()
 
   useEffect(() => {
     const fetchTransactions = async () => {
