@@ -1,7 +1,7 @@
 //AuthGuard.js
 import { Navigate, Outlet } from 'react-router-dom';
 
-const AuthGuard = ({ isAuthenticated, redirectPath = '/login', children }) => {
+const AuthGuard = ({ isAuthenticated, redirectPath = '/', children }) => {
   if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace />;
   }

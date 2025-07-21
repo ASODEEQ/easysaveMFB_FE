@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+// import logo  from '../assets/'
 
 const Dashboard = () => {
   const [loading, setloading] = useState(true);
@@ -28,8 +29,6 @@ const Dashboard = () => {
       }
       setloading(false);
 
-
-
       console.log(response.status);
     };
 
@@ -42,90 +41,169 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
-      <nav
-        className="navbar navbar-expand-lg navbar-dark"
-        style={{ backgroundColor: "#ff6347" }}
-      >
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            EASY SAVE MFB
-          </a>
+    <div className="dashboard bg-light" style={{ minHeight: "100vh" }}>
+      <header className="bg-primary">
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-dark">
+            <div className="container-fluid">
+              <div className="d-flex align-items-center">
+                <img 
+                  // src=""
+                  alt="Esave MFB" 
+                  style={{ height: '40px' }}
+                />
+                <span className="navbar-brand ms-3">Online Banking</span>
+              </div>
+              
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDarkDropdown"
-            aria-controls="navbarNavDarkDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul className="navbar-nav">
-              <li className="nav-item dropdown">
-                <button
-                  className="btn btn-outline-light dropdown-toggle me-2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Transfers
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  style={{ backgroundColor: "#ff6347", border: "none" }}
-                >
-                  <li>
-                    <a className="dropdown-item text-white" href="#">
-                      To esave mfb
-                    </a>
+              <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav ms-auto">
+                  <li className="nav-item dropdown">
+                    <button
+                      className="btn btn-link nav-link dropdown-toggle text-white"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Transaction
+                    </button>
+                    <ul className="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <Link className="dropdown-item" to={`/transferfunds/${id}`}>
+                          Transfer to Another Account
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to={`/deposit/${id}`}>
+                          Make a Deposit
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={`/transactions/${id}`} className="dropdown-item">
+                          Transaction History
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <li>
-                    <a className="dropdown-item text-white" href="#">
-                      To other bank
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item text-white" href="#">
-                      Transaction history
-                    </a>
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-link nav-link text-white"
+                      onClick={Logout}
+                    >
+                      Sign Out
+                    </button>
                   </li>
                 </ul>
-                <button
-                  className="btn btn-outline-light"
-                  onClick={Logout}
-                  style={{ borderColor: "white", color: "white" }}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <main className="container py-4">
+        {loading ? (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col-lg-8">
+              <div className="card mb-4 border-0 shadow-sm">
+                <div className="card-header bg-white border-0">
+                  <h3 className="mb-0">Account Summary</h3>
+                </div>
+                <div className="card-body">
+                  <div className="d-flex align-items-center mb-4">
+                    <img 
+                      src={user.profile} 
+                      alt="Profile" 
+                      width={60} 
+                      height={60} 
+                      className="rounded-circle me-3 border border-primary"
+                    />
+                    <div>
+                      <h4 className="mb-1">Welcome, {user.name}</h4>
+                      <p className="text-muted mb-0">Member since {new Date().toLocaleDateString()}</p>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <div className="p-3 bg-light rounded">
+                        <h5 className="text-muted">Account Number</h5>
+                        <h3 className="text-primary">{user.accountnum}</h3>
+                      </div>
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <div className="p-3 bg-light rounded">
+                        <h5 className="text-muted">Available Balance</h5>
+                        <h3 className="text-primary">${user.balance}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-4">
+              <div className="card mb-4 border-0 shadow-sm">
+                <div className="card-header bg-white border-0">
+                  <h3 className="mb-0">Quick Actions</h3>
+                </div>
+                <div className="card-body">
+                  <div className="d-grid gap-3">
+                    <Link 
+                      to={`/transferfunds/${id}`} 
+                      className="btn btn-primary btn-lg"
+                    >
+                      Transfer Funds
+                    </Link>
+                    <Link 
+                      to={`/deposit/${id}`} 
+                      className="btn btn-outline-primary btn-lg"
+                    >
+                      Make a Deposit
+                    </Link>
+                    <Link 
+                      to={`/transactions/${id}`} 
+                      className="btn btn-outline-secondary btn-lg"
+                    >
+                      View Transactions
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+
+ 
+      <footer className="bg-light py-4 border-top mt-auto">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 text-center text-md-start">
+              <p className="mb-1 small text-muted"> Easysave MFB, BY ABK.</p>
+            </div>
+            <div className="col-md-6 text-center text-md-end">
+              <Link to="/privacy" className="small text-muted text-decoration-none me-3">Privacy</Link>
+              <Link to="/security" className="small text-muted text-decoration-none me-3">Security</Link>
+              <Link to="/agreements" className="small text-muted text-decoration-none">Agreements</Link>
+            </div>
           </div>
         </div>
-      </nav>
-
-      {loading ? (
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      ) : (
-        <div>
-              <h3>Welcome, {user.name} </h3>
-              <img src={user.profile} alt="" width={50} height={50} style={{borderRadius: '100%'}}/>
-              <h2>Your account number is : {user.accountnum}</h2>
-              <p>Your account balance is : ${user.balance} </p>
-              <button>Transfer to EsaveMFB</button> <br />
-              <button>Transfer to other banks</button> <br />
-              <button>Transaction history</button> <br />
-
-
-        </div>
-    
-        
-      )}
+      </footer>
     </div>
   );
 };

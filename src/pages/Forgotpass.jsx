@@ -1,167 +1,130 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Forgotpass = () => {
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
-    const [status, setstatus] = useState("")
-    const [resp, setresp] = useState("")
+ 
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState("");
+    const [status, setstatus] = useState("");
+    const [resp, setresp] = useState("");
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     const reset = async() => {
-        let resetit = {email, password}
-        let endpoint = "http://localhost:5005/user/forgotpass"
+        let resetit = {email, password};
+        let endpoint = "http://localhost:5005/user/forgotpass";
 
-        let response = await axios.post(endpoint, resetit)
+        let response = await axios.post(endpoint, resetit);
 
         console.log(response.data);
-        setstatus(response.data.status)
-        setresp(response.data.message)
+        setstatus(response.data.status);
+        setresp(response.data.message);
 
         if(response.data.status){
-            navigate('/')
+            navigate('/');
         }
         else{
             console.log({status: false, message: "try to reset again"});
         }
-    }
+    };
+
 
     return (
-        <div className="forgotpass-container" style={styles.container}>
-            <div className="row justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-                <div className="col-12 col-md-6 col-lg-4">
-                    <div className="card shadow-lg" style={styles.card}>
-                        <div className="card-body p-4 p-md-5">
-                            <div className="text-center mb-4">
-                                <h2 style={styles.heading}>Reset Password</h2>
-                                <p className="text-muted">Enter your email and new password</p>
-                            </div>
+        <div className="bg-light min-vh-100">
+    
+            <header className="bg-primary py-3">
+                <div className="container">
+                    <div className="d-flex align-items-center">
+                        <img 
+                            // src="" 
+                            alt="Esave MFB" 
+                            style={{ height: '40px' }}
+                        />
+                        <span className="navbar-brand ms-3 text-white">Online Banking</span>
+                    </div>
+                </div>
+            </header>
 
-                            {status ? (
-                                <div className="alert alert-success mb-4" role="alert">
-                                    {resp}
+            <main className="container py-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-8 col-lg-6 col-xl-5">
+                        <div className="card shadow-sm border-0">
+                            <div className="card-header bg-white border-0 pt-4">
+                                <h2 className="text-center text-primary mb-1">Reset Your Password</h2>
+                                <p className="text-center text-muted mb-0">Enter your email and new password</p>
+                            </div>
+                            <div className="card-body px-4 px-md-5 py-4">
+                         
+                                {status ? (
+                                    <div className="alert alert-success mb-4" role="alert">
+                                        {resp}
+                                    </div>
+                                ) : resp ? (
+                                    <div className="alert alert-danger mb-4" role="alert">
+                                        {resp}
+                                    </div>
+                                ) : null}
+
+                       
+                                <div className="mb-4">
+                                    <label htmlFor="email" className="form-label fw-bold">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        className="form-control form-control-lg" 
+                                        id="email" 
+                                        placeholder="Enter your email address" 
+                                        onChange={(e) => setemail(e.target.value)}
+                                    />
                                 </div>
-                            ) : resp ? (
-                                <div className="alert alert-danger mb-4" role="alert">
-                                    {resp}
+
+                   
+                                <div className="mb-4">
+                                    <label htmlFor="password" className="form-label fw-bold">New Password</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control form-control-lg" 
+                                        id="password" 
+                                        placeholder="Create new password" 
+                                        onChange={(e) => setpassword(e.target.value)}
+                                    />
+                                    <small className="text-muted">Must be at least 8 characters</small>
                                 </div>
-                            ) : null}
+                                
+                         
+                                <div className="d-grid gap-2 mb-4">
+                                    <button 
+                                        className="btn btn-primary btn-lg" 
+                                        type="button"
+                                        onClick={reset}
+                                    >
+                                        Reset Password
+                                    </button>
+                                </div>
 
-                            <div className="mb-4">
-                                <label htmlFor="email" className="form-label" style={styles.label}>Email</label>
-                                <input 
-                                    type="email" 
-                                    className="form-control" 
-                                    id="email" 
-                                    placeholder="Enter your email" 
-                                    onChange={(e) => setemail(e.target.value)}
-                                    style={styles.input}
-                                />
-                            </div>
-
-                            <div className="mb-4">
-                                <label htmlFor="password" className="form-label" style={styles.label}>New Password</label>
-                                <input 
-                                    type="password" 
-                                    className="form-control" 
-                                    id="password" 
-                                    placeholder="Enter new password" 
-                                    onChange={(e) => setpassword(e.target.value)}
-                                    style={styles.input}
-                                />
-                            </div>
-                            
-                            <div className="d-grid gap-2 mb-3">
-                                <button 
-                                    className="btn" 
-                                    type="button"
-                                    onClick={reset}
-                                    style={styles.button}
-                                >
-                                    Update Password
-                                </button>
-                            </div>
-
-                            {resp && (
+                          
                                 <div className="text-center">
                                     <Link 
                                         to={'/'} 
-                                        style={styles.link}
+                                        className="text-decoration-none text-primary fw-medium"
                                     >
-                                        Back to Login
+                                        ← Back to Sign In
                                     </Link>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
+
+          
+            <footer className="bg-white py-3 border-top">
+                <div className="container text-center text-muted small">
+                    Easysave MFB, © ABK. {new Date().getFullYear()} Easysave MFB.
+                </div>
+            </footer>
         </div>
-    )
-}
+    );
+};
 
-const styles = {
-    container: {
-        backgroundColor: '#f8f9fa',
-        minHeight: '100vh',
-        padding: '20px'
-    },
-    card: {
-        border: 'none',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        backgroundColor: '#ffffff'
-    },
-    heading: {
-        color: '#ff6347',
-        fontWeight: '600',
-        marginBottom: '0.5rem'
-    },
-    label: {
-        color: '#495057',
-        fontWeight: '500',
-        marginBottom: '0.5rem'
-    },
-    input: {
-        padding: '12px 15px',
-        borderRadius: '8px',
-        border: '1px solid #ced4da',
-        fontSize: '16px',
-        transition: 'border-color 0.3s',
-        ':focus': {
-            borderColor: '#ff6347',
-            boxShadow: '0 0 0 0.25rem rgba(255, 99, 71, 0.25)'
-        }
-    },
-    button: {
-        backgroundColor: '#ff6347',
-        color: 'white',
-        padding: '12px',
-        borderRadius: '8px',
-        border: 'none',
-        fontWeight: '600',
-        fontSize: '16px',
-        transition: 'all 0.3s',
-        ':hover': {
-            backgroundColor: '#e5533d',
-            transform: 'translateY(-2px)'
-        },
-        ':active': {
-            transform: 'translateY(0)'
-        }
-    },
-    link: {
-        color: '#ff6347',
-        textDecoration: 'none',
-        fontWeight: '500',
-        transition: 'color 0.3s',
-        ':hover': {
-            color: '#e5533d',
-            textDecoration: 'underline'
-        }
-    }
-}
-
-export default Forgotpass
+export default Forgotpass;
