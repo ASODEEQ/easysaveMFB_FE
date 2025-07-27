@@ -5,7 +5,8 @@ import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Dashboard = () => {
   const [loading, setloading] = useState(true);
-  const [user, setuser] = useState({})
+  const [user, setuser] = useState({});
+  const [transactions, setTransactions] = useState([]);
   let params = useParams();
   let token = localStorage.getItem("token");
   const { id } = params;
@@ -23,6 +24,7 @@ const Dashboard = () => {
       console.log(response.data)
 
       setuser(response.data)
+      console.log(user)
 
       if(response.data.status >= 401 && response.data.status <= 403){
           navigate('/')
@@ -32,9 +34,40 @@ const Dashboard = () => {
       console.log(response.status);
     };
 
-    fetchUser();
-  }, []);
+    const fetchTransactions = async () => {
+      try {
+        let response = await axios.get(`https://bankappbackend-1.onrender.com/user/transactions/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data);
+        
+        setTransactions(response.data.data.splice(0,5));
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
 
+    fetchUser();
+    fetchTransactions();
+  }, [id, token, navigate]);
+
+   const formatDate = (timestamp) => {
+    const date = new Date(Number(timestamp));
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+  // const formatDate =(date)=>{
+  //   let dateString  = new Date()
+  //  return dateString.toLocaleDateString(date) 
+  // }
   const Logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -134,7 +167,9 @@ const Dashboard = () => {
                     />
                     <div>
                       <h4 className="mb-1">Welcome, {user.name}</h4>
-                      <p className="text-muted mb-0">Member since {new Date().toLocaleDateString()}</p>
+                      <p className="text-muted mb-0">Member since {user.dateCreated.split('T')[0]}</p>
+                    
+                      
                     </div>
                   </div>
 
@@ -185,11 +220,58 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+            
+            <div className="col-12">
+              <div className="card border-0 shadow-sm mb-4">
+                <div className="card-header bg-white border-0">
+                  <h3 className="mb-0">Recent Transactions</h3>
+                </div>
+                <div className="card-body">
+
+                  
+                  {transactions.length > 0 ? (
+                    <div className="table-responsive">
+                      <table className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {transactions.map((transaction, index) => (
+                            <tr key={index}>
+                              <td>{formatDate(transaction.created_at)}</td>
+                              <td>{transaction.description || 'N/A'}</td>
+                              <td>
+                                <span className={`badge ${transaction.transactionType === 'received'|| transaction.transactionType === 'deposit' ? 'bg-success' : 'bg-danger'}`}>
+                                  {transaction.transactionType}
+                                </span>
+                              </td>
+                              <td>${transaction.amount}</td>
+                              <td>
+                                <span className="badge bg-success">Completed</span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="text-center py-4">
+                      <p className="text-muted">No recent Transaction</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </main>
 
- 
       <footer className="bg-light py-4 border-top mt-auto">
         <div className="container">
           <div className="row">

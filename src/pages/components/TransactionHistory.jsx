@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import logo2 from  '../../assets/EsaveBankLogo.jpeg'
 
 
 const TransactionHistory = () => {
@@ -82,7 +83,7 @@ const TransactionHistory = () => {
       <header className="bg-primary py-3">
         <div className="container d-flex justify-content-between align-items-center">
           <img 
-            // src="" 
+            src={logo2} 
             alt="Esave MFB" 
             style={{ height: '40px' }}
           />

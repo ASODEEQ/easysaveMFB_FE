@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Forgotpass = () => {
  
@@ -37,7 +38,7 @@ const Forgotpass = () => {
                 <div className="container">
                     <div className="d-flex align-items-center">
                         <img 
-                            // src="" 
+                            src={logo}
                             alt="Esave MFB" 
                             style={{ height: '40px' }}
                         />

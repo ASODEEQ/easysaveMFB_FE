@@ -31,7 +31,14 @@ const Transferesave = () => {
           "https://bankappbackend-1.onrender.com/user/resolveAccount",
           { accountNumber: value }
         );
-        setAccountInfo(response.data);
+        console.log(response.data);
+        
+      if(response.data.firstName){
+          setAccountInfo(response.data);
+      }else{
+        setError('Failed to resolve account')
+        setAccountInfo(null)
+      }
       } catch (error) {
         setError("Failed to resolve account");
         console.error("Account resolution error:", error);

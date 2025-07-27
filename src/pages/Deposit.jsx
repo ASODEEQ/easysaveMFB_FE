@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Deposit = () => {
   let navigate = useNavigate();
@@ -26,7 +27,12 @@ const Deposit = () => {
           "https://bankappbackend-1.onrender.com/user/resolveAccount",
           { accountNumber: value }
         );
-        setaccountInfo(response.data);
+        if(response.data.firstName){
+          setaccountInfo(response.data);
+        }else{
+          seterror('account not found');
+          setaccountInfo(null)
+        }
       } catch (error) {
         seterror("Failed to resolve account");
         console.error("Account resolution error:", error);
@@ -37,6 +43,10 @@ const Deposit = () => {
   };
 
   const depositMoney = async () => {
+    if(error){
+      seterror('cannot send money to invalid account')
+      return
+    }
     let number = Number(amount);
     try {
       let response = await axios.post(
@@ -68,6 +78,7 @@ const Deposit = () => {
       <header className="bg-primary py-3">
         <div className="container d-flex justify-content-between align-items-center">
           <img 
+            src={logo}
             alt="Esave MFB" 
             style={{ height: '40px' }}
           />
