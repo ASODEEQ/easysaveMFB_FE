@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import Forgotpass from "./Forgotpass";
 import logo from '../assets/EsaveBankLogo.jpeg'
 
 const Login = () => {
@@ -25,7 +24,6 @@ const Login = () => {
       if (response.data.status) {
          setTimeout(() => {
            navigate(`/dashboard/${response.data.id}`);
-          // navigate(`/`);
         }, 4000);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("id", response.data.id);
@@ -34,6 +32,7 @@ const Login = () => {
       } else {
         console.log("try again");
         setisloading(false);
+        navigate('/')
       }
     } catch (error) {
       console.log(error);
@@ -117,15 +116,6 @@ const Login = () => {
                   >
                     {isloading ? (
                       <div className="d-flex justify-content-center align-items-center">
-                        {/* <Bars
-                          height="20"
-                          width="20"
-                          color="#ffffff"
-                          ariaLabel="bars-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                          visible={true}
-                        /> */}
 
                         loading...
                       </div>
@@ -145,7 +135,7 @@ const Login = () => {
 
             <div className="mt-4 text-center">
               <p className="mb-2">
-                <Link to="/register" style={styles.smallLink}>Enroll in Online Banking</Link>
+                <Link to="/register" style={styles.smallLink}>Create an account</Link>
               </p>
               <p className="mb-0">
                 <Link to="/help" style={styles.smallLink}>Need Help?</Link>
@@ -155,7 +145,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Footer */}
+     
       <footer className="bg-light py-4 border-top">
         <div className="container text-center">
           <p className="mb-1" style={styles.footerText}>Easysave MFB, BY ABK.</p>
