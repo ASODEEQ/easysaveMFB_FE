@@ -70,8 +70,6 @@ const Transferesave = () => {
           setTimeout(() => {
           navigate(`/dashboard/${id}`);
         }, 4000);
-
-        // navigate(`/dashboard/${id}`);
       }
     }catch (error) {
       setmessage(error.response?.data?.message || "Transfer failed");
