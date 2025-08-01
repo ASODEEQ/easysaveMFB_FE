@@ -23,7 +23,6 @@ const Register = () => {
         fileUpload.onloadend = () => {
             setfile(fileUpload.result);
             console.log(fileUpload.result);
-            setMessage(fileUpload.result.message)
         }
     };
 
@@ -41,7 +40,7 @@ const Register = () => {
             }
         } catch (error) {
             console.log(error);
-            setMessage(error)
+            setMessage(error.message)
         }
     };
 
