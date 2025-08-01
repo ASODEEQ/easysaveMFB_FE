@@ -11,7 +11,7 @@ const Register = () => {
     const [phoneNumber, setphoneNumber] = useState('');
     const [file, setfile] = useState(null);
     const [password, setpassword] = useState('');
-    const [message, setmessage] = useState('')
+    const [message, setMessage] = useState('')
     let navigate = useNavigate();
 
     const handleFile = (e) => {
@@ -23,7 +23,7 @@ const Register = () => {
         fileUpload.onloadend = () => {
             setfile(fileUpload.result);
             console.log(fileUpload.result);
-            setmessage(fileUpload.result.message)
+            setMessage(fileUpload.result.message)
         }
     };
 
@@ -34,14 +34,14 @@ const Register = () => {
             let response = await axios.post(endpoint, Registerit);
             console.log(response.data);
             if(response.data.status){
-                setmessage(response.data.message)
+                setMessage(response.data.message)
                 navigate("/");
             }else{
-                  setmessage(response.data.message)
+                  setMessage(response.data.message)
             }
         } catch (error) {
             console.log(error);
-            setmessage(error)
+            setMessage(error)
         }
     };
 
@@ -71,7 +71,7 @@ const Register = () => {
                     {message}
                     <button 
                       className="btn-close float-end" 
-                      onClick={() => setmessage('')}
+                      onClick={() => setMessage('')}
                     ></button>
                   </div>
                 )}
