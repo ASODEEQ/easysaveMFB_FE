@@ -44,7 +44,10 @@ const Dashboard = () => {
         });
         console.log(response.data);
         
-        setTransactions(response.data.data.splice(0,5));
+        if(response.data.data){
+
+          setTransactions(response.data.data.splice(0,5));
+        }
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -64,10 +67,6 @@ const Dashboard = () => {
       minute: '2-digit'
     });
   };
-  // const formatDate =(date)=>{
-  //   let dateString  = new Date()
-  //  return dateString.toLocaleDateString(date) 
-  // }
   const Logout = () => {
     localStorage.removeItem("token");
     navigate("/");

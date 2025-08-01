@@ -11,6 +11,7 @@ const Register = () => {
     const [phoneNumber, setphoneNumber] = useState('');
     const [file, setfile] = useState(null);
     const [password, setpassword] = useState('');
+    const [message, setmessage] = useState('')
     let navigate = useNavigate();
 
     const handleFile = (e) => {
@@ -22,6 +23,7 @@ const Register = () => {
         fileUpload.onloadend = () => {
             setfile(fileUpload.result);
             console.log(fileUpload.result);
+            setmessage(fileUpload.result.message)
         }
     };
 
@@ -31,6 +33,7 @@ const Register = () => {
             let Registerit = {firstName, lastName, email, phoneNumber, password, profileImage: file};
             let response = await axios.post(endpoint, Registerit);
             console.log(response.data);
+            setmessage(response.data.message)
             if(response.data.status){
                 navigate("/");
             }
@@ -60,6 +63,15 @@ const Register = () => {
                     <div className="col-md-8 col-lg-6">
                         <div className="card shadow-sm border-0">
                             <div className="card-header bg-white border-0 pt-4">
+                                {message && (
+                  <div className={`alert ${message.toLowerCase().includes('success') ? 'alert-success' : 'alert-danger'} mb-4`}>
+                    {message}
+                    <button 
+                      className="btn-close float-end" 
+                      onClick={() => setmessage('')}
+                    ></button>
+                  </div>
+                )}
                                 <h2 className="text-center text-primary mb-1">Create Your Account</h2>
                                 <p className="text-center text-muted mb-0">Join Esave Online Banking</p>
                             </div>
