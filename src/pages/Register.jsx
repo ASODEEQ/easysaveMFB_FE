@@ -33,12 +33,15 @@ const Register = () => {
             let Registerit = {firstName, lastName, email, phoneNumber, password, profileImage: file};
             let response = await axios.post(endpoint, Registerit);
             console.log(response.data);
-            setmessage(response.data.message)
             if(response.data.status){
+                setmessage(response.data.message)
                 navigate("/");
+            }else{
+                  setmessage(response.data.message)
             }
         } catch (error) {
             console.log(error);
+            setmessage(error)
         }
     };
 
